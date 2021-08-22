@@ -12,35 +12,29 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: linux
-            os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu
-            artifact_name: target/release/libhellorust.so
-            asset_name: libhellorust.so(x86_64)
-          # - name: macos
-          #   os: macos-latest
-          #   target: x86_64-apple-darwin
-          #   artifact_name: target/release/libhellorust.dylib
-          #   asset_name: libhellorust.dylib(x86_64)
-          - name: linux-arm
-            os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            artifact_name: target/release/libhellorust.so
-            asset_name: libhellorust.so(aarch64)
-            linker: gcc-aarch64-linux-gnu
-            cross: true
-          # - name: macos-arm
-          #   os: macos-latest
-          #   target: aarch64-apple-darwin
-          #   artifact_name: target/release/libhellorust.dylib
-          #   asset_name: libhellorust.dylib(aarch64)
+          # - name: linux
+          #   os: ubuntu-latest
+          #   target: x86_64-unknown-linux-gnu
+          #   artifact_name: target/release/libhellorust.so
+          #   asset_name: libhellorust.so(x86_64)
+          - name: macos
+            os: macos-latest
+            target: x86_64-apple-darwin
+            artifact_name: target/release/libhellorust.dylib
+            asset_name: libhellorust.dylib(x86_64)
+          # - name: linux-arm
+          #   os: ubuntu-latest
+          #   target: aarch64-unknown-linux-gnu
+          #   artifact_name: target/release/libhellorust.so
+          #   asset_name: libhellorust.so(aarch64)
+          #   linker: gcc-aarch64-linux-gnu
+          #   cross: true
+          - name: macos-arm
+            os: macos-latest
+            target: aarch64-apple-darwin
+            artifact_name: target/release/libhellorust.dylib
+            asset_name: libhellorust.dylib(aarch64)
 
-    steps:
-    - name: Install Linker
-      if: matrix.cross
-      run: |
-        sudo apt update
-        sudo apt install ${{ matrix.linker }}
 
     - uses: actions/checkout@v1
     - uses: actions-rs/toolchain@v1
