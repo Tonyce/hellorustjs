@@ -1,0 +1,26 @@
+{
+  "name": "@jsrsc/hellorust",
+  "version": "0.1.17",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pre-commit": "node scripts/pre-commit.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "os": [
+    "linux",
+    "darwin"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "optionalDependencies": {
+    "@jsrsc/hellorust-darwin-arm64": "^0.1.0",
+    "@jsrsc/hellorust-linux-arm64": "^0.1.0"
+  },
+  "devDependencies": {
+    "husky": "^7.0.1"
+  }
+}
