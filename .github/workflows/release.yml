@@ -8,26 +8,26 @@ on:
 jobs:
   publish:
     name: Linux ARMv7
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions-rs/toolchain@v1
-          with:
-            toolchain: stable
-            target: armv7-unknown-linux-gnueabihf
-            override: true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: armv7-unknown-linux-gnueabihf
+          override: true
 
-        - uses: actions-rs/cargo@v1
-          with:
-            use-cross: true
-            command: build
-            args: --target armv7-unknown-linux-gnueabihf
+      - uses: actions-rs/cargo@v1
+        with:
+          use-cross: true
+          command: build
+          args: --target armv7-unknown-linux-gnueabihf
 
-        - name: Upload binaries to release
-          uses: actions/upload-artifact@v2
-          with:
-            name: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
-            path: libhellorust.so(aarch64)
+      - name: Upload binaries to release
+        uses: actions/upload-artifact@v2
+        with:
+          name: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
+          path: libhellorust.so(aarch64)
 
 
   # publish:
