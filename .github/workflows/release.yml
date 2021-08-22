@@ -15,12 +15,12 @@ jobs:
         include:
           - name: linux
             os: ubuntu-latest
-            artifact_name: target/release/<name>
-            asset_name: <name>-linux
+            artifact_name: target/release/libhellorust.so
+            asset_name: libhellorust.so
           - name: macos
             os: macos-latest
-            artifact_name: target/release/<name>
-            asset_name: <name>-macos
+            artifact_name: target/release/libhellorust.dylib
+            asset_name: libhellorust.dylib
 
     steps:
     - uses: actions/checkout@v1
