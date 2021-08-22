@@ -10,9 +10,12 @@ const dirs = fs.readdirSync(platformDir);
 // console.log(dirs)
 dirs.forEach((item) => {
     const itemPath = path.join(platformDir, item);
-    try {
-        execSync(`cd ${itemPath} && npm version ${packageVersion} && git add .`);
-    } catch (error) {
-        process.exit(1);
+    const {version: subVersion} = require(path.join(itemPath, './package.json'));
+    if (packageVersion != subVersion) {
+        try {
+            execSync(`cd ${itemPath} && npm version ${packageVersion} && git add .`);
+        } catch (error) {
+            process.exit(1);
+        }
     }
 })
