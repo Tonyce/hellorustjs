@@ -7,40 +7,64 @@ on:
 
 jobs:
   publish:
-    name: Publish for ${{ matrix.name }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        include:
-          # - name: linux
-          #   os: ubuntu-latest
-          #   target: x86_64-unknown-linux-gnu
-          #   artifact_name: target/release/libhellorust.so
-          #   asset_name: libhellorust.so(x86_64)
-          - name: linux-arm
-            os: ubuntu-latest
-            # target: aarch64-unknown-linux-musl
+    name: Linux ARMv7
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: actions-rs/toolchain@v1
+          with:
+            toolchain: stable
             target: armv7-unknown-linux-gnueabihf
-            artifact_name: target/release/libhellorust.so
-            asset_name: libhellorust.so(aarch64)
-            cross: true
+            override: true
 
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions-rs/toolchain@v1
-      with:
-        target: ${{ matrix.target }}
-        profile: minimal
-        toolchain: stable
+        - uses: actions-rs/cargo@v1
+          with:
+            use-cross: true
+            command: build
+            args: --target armv7-unknown-linux-gnueabihf
 
-    - name: Build
-      # run: cargo build --release --locked --target ${{ matrix.target }}
-      run: |
-        apt install gcc-arm-linux-gnueabihf
-        cargo rustc --target ${{ matrix.target }}
+        - name: Upload binaries to release
+          uses: actions/upload-artifact@v2
+          with:
+            name: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
+            path: libhellorust.so(aarch64)
 
-    - name: Upload binaries to release
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{ matrix.asset_name }}
-        path: ${{ matrix.artifact_name }}
+
+  # publish:
+  #   name: Publish for ${{ matrix.name }}
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     matrix:
+  #       include:
+  #         # - name: linux
+  #         #   os: ubuntu-latest
+  #         #   target: x86_64-unknown-linux-gnu
+  #         #   artifact_name: target/release/libhellorust.so
+  #         #   asset_name: libhellorust.so(x86_64)
+  #         - name: linux-arm
+  #           os: ubuntu-latest
+  #           # target: aarch64-unknown-linux-musl
+  #           target: armv7-unknown-linux-gnueabihf
+  #           artifact_name: target/release/libhellorust.so
+  #           asset_name: libhellorust.so(aarch64)
+  #           cross: true
+
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - uses: actions-rs/toolchain@v1
+  #     with:
+  #       target: ${{ matrix.target }}
+  #       profile: minimal
+  #       toolchain: stable
+
+  #   - name: Build
+  #     # run: cargo build --release --locked --target ${{ matrix.target }}
+  #     run: |
+  #       apt install gcc-arm-linux-gnueabihf
+  #       cargo rustc --target ${{ matrix.target }}
+
+  #   - name: Upload binaries to release
+  #     uses: actions/upload-artifact@v2
+  #     with:
+  #       name: ${{ matrix.asset_name }}
+  #       path: ${{ matrix.artifact_name }}
