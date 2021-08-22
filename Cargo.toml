@@ -8,6 +8,9 @@ exclude = ["index.node"]
 [lib]
 crate-type = ["cdylib"]
 
+[target.armv7-unknown-linux-gnueabihf]
+linker = "arm-linux-gnueabihf-gcc"
+
 
 [dependencies.neon]
 version = "0.9"
