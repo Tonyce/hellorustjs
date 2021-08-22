@@ -9,7 +9,6 @@ jobs:
   publish:
     name: Publish for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    if: "contains(github.event.head_commit.message, '[Released]')"
     strategy:
       matrix:
         name: [ linux, macos ]
