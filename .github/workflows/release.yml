@@ -11,23 +11,17 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        name: [
-          linux,
-          # macos,
-          linux-arm,
-          # macos-arm
-        ]
         include:
           - name: linux
             os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             artifact_name: target/release/libhellorust.so
             asset_name: libhellorust.so(x86_64)
-          - name: macos
-            os: macos-latest
-            target: x86_64-apple-darwin
-            artifact_name: target/release/libhellorust.dylib
-            asset_name: libhellorust.dylib(x86_64)
+          # - name: macos
+          #   os: macos-latest
+          #   target: x86_64-apple-darwin
+          #   artifact_name: target/release/libhellorust.dylib
+          #   asset_name: libhellorust.dylib(x86_64)
           - name: linux-arm
             os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
@@ -35,11 +29,11 @@ jobs:
             asset_name: libhellorust.so(aarch64)
             linker: gcc-aarch64-linux-gnu
             cross: true
-          - name: macos-arm
-            os: macos-latest
-            target: aarch64-apple-darwin
-            artifact_name: target/release/libhellorust.dylib
-            asset_name: libhellorust.dylib(aarch64)
+          # - name: macos-arm
+          #   os: macos-latest
+          #   target: aarch64-apple-darwin
+          #   artifact_name: target/release/libhellorust.dylib
+          #   asset_name: libhellorust.dylib(aarch64)
 
     steps:
     - name: Install Linker
@@ -47,8 +41,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install ${{ matrix.linker }}
-        cat .cargo/config.github 
-        cat .cargo/config.github >> .cargo/config
 
     - uses: actions/checkout@v1
     - uses: actions-rs/toolchain@v1
