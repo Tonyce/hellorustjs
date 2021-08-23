@@ -55,12 +55,8 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
           # scope: '@octocat'
-      - run: pwd
-      - run: npm publish --access public
-        env:
-          # Use a token to publish to NPM. See below for how to set it up
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIST_TOKEN }}
-      - run: |
+      - name: Platforms
+        run: |
           cp ${{ matrix.artifact_name }} ${{ matrix.platform }}/index.node
           cd ${{ matrix.platform }}
           pwd
@@ -68,6 +64,12 @@ jobs:
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIST_TOKEN }}
+      
+      # - run: pwd
+      # - run: npm publish --access public
+      #   env:
+      #     # Use a token to publish to NPM. See below for how to set it up
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIST_TOKEN }}
 
       # - name: Upload binaries to release
       #   uses: actions/upload-artifact@v2
