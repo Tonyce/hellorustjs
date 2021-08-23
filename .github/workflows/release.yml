@@ -14,14 +14,14 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          target: armv7-unknown-linux-gnueabihf
+          target: aarch64-unknown-linux-gnu
           override: true
 
       - uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
-          args: --target armv7-unknown-linux-gnueabihf --release
+          args: --target aarch64-unknown-linux-gnu --release
 
       # - name: Build
       #   run: |
@@ -31,7 +31,7 @@ jobs:
       - name: Upload binaries to release
         uses: actions/upload-artifact@v2
         with:
-          path: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
+          path: target/aarch64-unknown-linux-gnu/release/libhellorust.so
           name: libhellorust.so(aarch64)
         # run: |
         #   echo hellotarget
