@@ -21,18 +21,21 @@ jobs:
         with:
           use-cross: true
           command: build
-          args: --target armv7-unknown-linux-gnueabihf
+          args: --target armv7-unknown-linux-gnueabihf --release
 
-      - name: Build
-        run: |
-          echo hellotarget
-          tree target
+      # - name: Build
+      #   run: |
+      #     echo hellotarget
+      #     tree target
 
-      # - name: Upload binaries to release
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     path: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
-      #     name: libhellorust.so(aarch64)
+      - name: Upload binaries to release
+        uses: actions/upload-artifact@v2
+        with:
+          path: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
+          name: libhellorust.so(aarch64)
+        # run: |
+        #   echo hellotarget
+        #   tree target
 
 
   # publish:
