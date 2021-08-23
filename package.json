@@ -1,6 +1,6 @@
 {
   "name": "@jsrsc/hellorust",
-  "version": "0.1.38",
+  "version": "0.1.39",
   "description": "",
   "main": "index.js",
   "scripts": {
