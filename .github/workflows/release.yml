@@ -19,7 +19,7 @@ jobs:
             cross: false
           - name: linux
             os: ubuntu-latest
-            target: x86_64-unknown-linux-gnu,
+            target: x86_64-unknown-linux-gnu
             artifact_name: target/release/libhellorust.so
             asset_name: libhellorust.so
             cross: false
