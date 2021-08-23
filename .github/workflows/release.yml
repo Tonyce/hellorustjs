@@ -23,11 +23,16 @@ jobs:
           command: build
           args: --target armv7-unknown-linux-gnueabihf
 
-      - name: Upload binaries to release
-        uses: actions/upload-artifact@v2
-        with:
-          path: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
-          name: libhellorust.so(aarch64)
+      - name: Build
+        run: |
+          echo hellotarget
+          tree target
+
+      # - name: Upload binaries to release
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     path: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
+      #     name: libhellorust.so(aarch64)
 
 
   # publish:
