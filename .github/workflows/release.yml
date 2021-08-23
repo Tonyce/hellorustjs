@@ -36,7 +36,7 @@ jobs:
         with:
           toolchain: stable
           target: ${{ matrix.target }}
-          override: true
+          override: ${{ matrix.cross }}
 
       - uses: actions-rs/cargo@v1
         with:
