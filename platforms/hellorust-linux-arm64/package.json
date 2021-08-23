@@ -1,6 +1,6 @@
 {
   "name": "@jsrsc/hellorust-linux-arm64",
-  "version": "0.1.50",
+  "version": "0.1.51",
   "os": [
     "linux"
   ],
