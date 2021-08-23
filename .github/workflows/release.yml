@@ -17,18 +17,21 @@ jobs:
             target: x86_64-apple-darwin
             artifact_name: target/x86_64-apple-darwin/release/libhellorust.dylib
             asset_name: libhellorust.dylib
+            platform: platforms/hellorust-darwin-x64
             cross: false
           - name: linux
             os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             artifact_name: target/x86_64-unknown-linux-gnu/release/libhellorust.so
             asset_name: libhellorust.so
+            platform: platforms/hellorust-linux-x64
             cross: false
           - name: linux-aarch64
             os: ubuntu-latest
             target: aarch64-unknown-linux-gnu
             artifact_name: target/aarch64-unknown-linux-gnu/release/libhellorust.so
             asset_name: libhellorust.so(aarch64)
+            platform: platforms/hellorust-linux-arm64
             cross: true
 
     steps:
@@ -46,11 +49,26 @@ jobs:
           command: build
           args: --target ${{ matrix.target }} --release
 
-      - name: Upload binaries to release
-        uses: actions/upload-artifact@v2
+      - name: Npm Publish
+        uses: actions/setup-node@v1
         with:
-          name: ${{ matrix.asset_name }}
-          path: ${{ matrix.artifact_name }}
+          node-version: 12
+        env:
+          # Use a token to publish to NPM. See below for how to set it up
+          NPM_TOKEN: ${{ secrets.NPM_PUBLIST_TOKEN }}
+      - run: pwd
+      - run: |
+          cp ${{ matrix.artifact_name }} ${{ matrix.platform }}/index.node
+          cd ${{ matrix.platform }}
+          ls
+      - run: pwd
+      # - run: npm publish --access public
+
+      # - name: Upload binaries to release
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: ${{ matrix.asset_name }}
+      #     path: ${{ matrix.artifact_name }}
 
       # - name: ls
       #   run: |

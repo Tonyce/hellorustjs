@@ -1,0 +1,17 @@
+{
+  "name": "@jsrsc/hellorust-linux-x64",
+  "version": "0.1.45",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "description": "",
+  "main": "index.node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

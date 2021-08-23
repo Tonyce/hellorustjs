@@ -5,4 +5,6 @@ target
 Cargo*
 src
 platforms
-
+.husky
+.github
+/bak
