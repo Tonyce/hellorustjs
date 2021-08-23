@@ -15,13 +15,13 @@ jobs:
           - name: macos
             os: macos-latest
             target: x86_64-apple-darwin
-            artifact_name: target/release/libhellorust.dylib
+            artifact_name: target/x86_64-apple-darwin/release/libhellorust.dylib
             asset_name: libhellorust.dylib
             cross: false
           - name: linux
             os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact_name: target/release/libhellorust.so
+            artifact_name: target/x86_64-unknown-linux-gnu/release/libhellorust.so
             asset_name: libhellorust.so
             cross: false
           - name: linux-aarch64
@@ -39,21 +39,23 @@ jobs:
           target: ${{ matrix.target }}
           override: ${{ matrix.cross }}
 
-      - uses: actions-rs/cargo@v1
+      - name: Build
+        uses: actions-rs/cargo@v1
         with:
           use-cross: ${{ matrix.cross }}
           command: build
           args: --target ${{ matrix.target }} --release
 
-      - name: ls
-        run: |
-          echo hellotarget
-          ls target
-      # - name: Upload binaries to release
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: ${{ matrix.asset_name }}
-      #     path: ${{ matrix.artifact_name }}
+      - name: Upload binaries to release
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.asset_name }}
+          path: ${{ matrix.artifact_name }}
+
+      # - name: ls
+      #   run: |
+      #     echo hellotarget
+      #     ls target
 
       # - name: Upload binaries to release
       #   uses: actions/upload-artifact@v2
