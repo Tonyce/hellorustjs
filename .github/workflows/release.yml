@@ -26,8 +26,8 @@ jobs:
       - name: Upload binaries to release
         uses: actions/upload-artifact@v2
         with:
-          name: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
-          path: libhellorust.so(aarch64)
+          path: target/armv7-unknown-linux-gnueabihf/release/libhellorust.so
+          name: libhellorust.so(aarch64)
 
 
   # publish:
