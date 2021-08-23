@@ -1,6 +1,6 @@
 {
   "name": "@jsrsc/hellorust-darwin-x64",
-  "version": "0.1.48",
+  "version": "0.1.49",
   "os": [
     "darwin"
   ],
