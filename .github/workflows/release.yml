@@ -45,10 +45,10 @@ jobs:
           command: build
           args: --target ${{ matrix.target }} --release
 
-      - name: tree
+      - name: ls
         run: |
           echo hellotarget
-          tree target
+          ls target
       # - name: Upload binaries to release
       #   uses: actions/upload-artifact@v2
       #   with:
