@@ -7,32 +7,45 @@ on:
 
 jobs:
   publish:
-    name: Linux ARMv7
+    name: Publish for ${{ matrix.name }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: macos-aarch64
+            target: aarch64-apple-darwin
+            artifact_name: target/aarch64-apple-darwin/release/libhellorust.dylib
+            asset_name: libhellorust.dylib(aarch64)
+          - name: linux-aarch64
+            target: aarch64-unknown-linux-gnu
+            artifact_name: target/aarch64-unknown-linux-gnu/release/libhellorust.so
+            asset_name: libhellorust.so(aarch64)
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-          target: aarch64-unknown-linux-gnu
+          target: ${{ matrix.target }}
           override: true
 
       - uses: actions-rs/cargo@v1
         with:
           use-cross: true
           command: build
-          args: --target aarch64-unknown-linux-gnu --release
-
-      # - name: Build
-      #   run: |
-      #     echo hellotarget
-      #     tree target
+          args: --target ${{ matrix.target }} --release
 
       - name: Upload binaries to release
         uses: actions/upload-artifact@v2
         with:
-          path: target/aarch64-unknown-linux-gnu/release/libhellorust.so
-          name: libhellorust.so(aarch64)
+          name: ${{ matrix.asset_name }}
+          path: ${{ matrix.artifact_name }}
+
+      # - name: Upload binaries to release
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     path: target/aarch64-unknown-linux-gnu/release/libhellorust.so
+      #     name: libhellorust.so(aarch64)
         # run: |
         #   echo hellotarget
         #   tree target
