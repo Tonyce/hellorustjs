@@ -54,13 +54,9 @@ jobs:
         with:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
-
-      - name: Platforms
         run: |
           cp ${{ matrix.artifact_name }} ${{ matrix.platform }}/index.node
           cd ${{ matrix.platform }}
-          pwd
-          ls
           npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIST_TOKEN }}
@@ -74,8 +70,7 @@ jobs:
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
-    - run: pwd
-    - run: npm publish --access public
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLIST_TOKEN }}
 
